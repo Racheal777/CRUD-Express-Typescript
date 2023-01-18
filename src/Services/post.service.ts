@@ -1,18 +1,17 @@
 import { Post, } from '../Models/posts'
 
+
 export class postService {
 
     //create a post
     async createPost(data: any) {
         try {
-            const post = await new Post()
-            const newPost = post.save(data)
+            const newPost = await Post.create(data)
             return newPost
 
         } catch (error) {
             console.log(error)
         }
-
     }
 
     //get all posts
@@ -29,11 +28,14 @@ export class postService {
 
     //get a single post
     async getPost(id: string) {
+      
         try {
-            const post = await Post.findById(id)
+            const post = await Post.findById({_id:id})
             if (!post) {
                 return 'post not available'
             }
+            console.log(post);
+            
             return post
 
         } catch (error) {
@@ -45,8 +47,17 @@ export class postService {
     //update a post
     async updatePost(id: string, data: any) {
         try {
-            const post = Post.findByIdAndUpdate(id, { data: data })
-            return post
+                //pass the id of the object you want to update
+                //data is for the new body you are updating the old one with
+                //new:true, so the dats being returned, is the update one
+                const postz = await Post.findByIdAndUpdate({_id:id}, data, {new: true})
+                
+                if(!postz){
+                    return "post not available"
+                }
+
+                return postz
+               
         } catch (error) {
             console.log(error)
         }

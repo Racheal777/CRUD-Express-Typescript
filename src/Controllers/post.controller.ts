@@ -5,7 +5,15 @@ class postController {
 
     //add post controller
     addpost = async (req: Request, res: Response) => {
-        const post = await postServices.createPost(req.body)
+
+        const data = {
+            title: req.body.title,
+            author: req.body.author,
+            description: req.body.description,
+            published: req.body.published
+        }
+        const post = await postServices.createPost(data)
+       
         res.send(post)
     }
 
@@ -26,7 +34,7 @@ class postController {
     //update post
     updatePost = async (req: Request, res: Response) => {
         const id = req.params.id
-        const post = await postServices.updatePost(id, req.body)
+       const post = await postServices.updatePost(id, req.body)  
         res.send(post)
     }
 
