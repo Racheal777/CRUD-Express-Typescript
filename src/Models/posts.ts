@@ -1,7 +1,7 @@
 //importing modules
-import mongoose, {Schema, model,} from 'mongoose'
+import  {Schema, model,} from 'mongoose'
 
-//creating an interface creating a document in mongoDB
+//creating an interface 
 interface IPosts {
     title: string,
     description: string,
@@ -10,11 +10,11 @@ interface IPosts {
 
 }
 
-//schema
+//Postschema
 const postSchema = new Schema<IPosts>({
     title: {
         type: String,
-        //required: true
+        
     },
 
     description: {

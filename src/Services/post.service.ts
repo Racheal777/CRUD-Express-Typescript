@@ -1,8 +1,6 @@
+//import module
 import { Post, } from '../Models/posts'
-
-
 export class postService {
-
     //create a post
     async createPost(data: any) {
         try {
@@ -23,7 +21,6 @@ export class postService {
         } catch (error) {
             console.log(error)
         }
-
     }
 
     //get a single post
@@ -34,14 +31,11 @@ export class postService {
             if (!post) {
                 return 'post not available'
             }
-            console.log(post);
-            
             return post
 
         } catch (error) {
             console.log(error)
         }
-
     }
 
     //update a post
@@ -50,20 +44,17 @@ export class postService {
                 //pass the id of the object you want to update
                 //data is for the new body you are updating the old one with
                 //new:true, so the dats being returned, is the update one
-                const postz = await Post.findByIdAndUpdate({_id:id}, data, {new: true})
-                
+                const postz = await Post.findByIdAndUpdate({_id:id}, data, {new: true})                
                 if(!postz){
                     return "post not available"
                 }
-
-                return postz
-               
+                return postz          
         } catch (error) {
             console.log(error)
         }
     }
 
-    //delete a post 
+    //delete a post by using the find by id and delete 
     async deletePost(id: string) {
         try {
             const post = await Post.findByIdAndDelete(id)
@@ -76,5 +67,5 @@ export class postService {
     }
 }
 
-
+//export the class
 export const postServices = new postService()

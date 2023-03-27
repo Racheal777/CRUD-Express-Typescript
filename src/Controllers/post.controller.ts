@@ -1,19 +1,19 @@
+//import modules
 import { postServices } from '../Services/post.service'
 import { Request, Response } from 'express'
 
 class postController {
-
     //add post controller
     addpost = async (req: Request, res: Response) => {
-
+        //data to be saved in database
         const data = {
             title: req.body.title,
             author: req.body.author,
             description: req.body.description,
             published: req.body.published
         }
+        //call the create post function in the service and pass the data from the request
         const post = await postServices.createPost(data)
-       
         res.send(post)
     }
 
@@ -26,6 +26,7 @@ class postController {
 
     //get a single post
     getAPost = async (req: Request, res: Response) => {
+        //get id from the parameter
         const id = req.params.id
         const post = await postServices.getPost(id)
         res.send(post)
@@ -48,4 +49,5 @@ class postController {
 
 }
 
+//export class
 export const PostController = new postController()
