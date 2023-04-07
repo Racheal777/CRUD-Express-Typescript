@@ -1,6 +1,7 @@
 //import modules
 import { postServices } from '../Services/post.service'
 import { Request, Response } from 'express'
+import {PostschemaValidate} from '../Models/posts'
 
 class postController {
     //add post controller
@@ -12,9 +13,18 @@ class postController {
             description: req.body.description,
             published: req.body.published
         }
-        //call the create post function in the service and pass the data from the request
-        const post = await postServices.createPost(data)
-        res.send(post)
+        //validating the request
+        const {error, value} = PostschemaValidate.validate(data)
+
+        if(error){
+            res.send(error.message)
+
+        }else{
+            //call the create post function in the service and pass the data from the request
+            const post = await postServices.createPost(value)
+            res.status(201).send(post)          
+        }
+        
     }
 
     //get all posts
